@@ -32,28 +32,60 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    const filteredInventors = inventors.filter(inventor => (inventor.year < 1600 && inventor.year >= 1500));
+    console.log('Investors who are born in 1500s',filteredInventors);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+
+    const mappedNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log('Investors first and last names', mappedNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    const sortedInventors = inventors.sort((a,b) => a.year - b.year);
+    console.log('Investors sorted by their birthdate', sortedInventors);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
+    const inventorsAge = inventors.reduce((acc, value) => acc +(value.passed - value.year),0);
+    console.log('Investors cummalative age', inventorsAge);
+
     // 5. Sort the inventors by years lived
 
-    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
-    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    const yearslived = inventors.map(inventor => ({        
+        ...inventor, inventorAge: inventor.passed - inventor.year
+    })).sort((a,b) => b.inventorAge - a.inventorAge);
+    console.table( yearslived);
 
 
-    // 7. sort Exercise
+    // 6. sort Exercise
     // Sort the people alphabetically by last name
 
-    // 8. Reduce Exercise
+    const sortPeople = people.sort((a,b) => {
+        const currentOne = a.split(',')[1];
+        const nextOne = b.split(',')[1];
+        return (currentOne > nextOne ? 1 : (currentOne < nextOne ? -1 : 0));
+    });
+    console.log('People sorted with the last name', sortPeople);
+
+    // Sort the Investors alphabetically by last name
+    const sortLastNames = inventors.sort((a,b) => {
+        return (a.last > b.last ? 1 : (a.last < b.last ? -1 : 0));
+    });
+    console.log('Investors sorted with the last name', sortLastNames);
+
+    // 7. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const instances = data.reduce((tally, value) => {
+        tally[value] = (tally[value] || 0) + 1;
+        return tally;
+    },{});
+    console.log('instances', instances);
   </script>
 </body>
 </html>
