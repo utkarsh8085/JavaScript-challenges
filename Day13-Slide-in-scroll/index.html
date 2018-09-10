@@ -58,6 +58,29 @@
       };
     }
 
+    function checkScroll(e) {
+        console.log(e);
+        const sliderImages =  document.querySelectorAll('.slide-in');
+        const userScrolledAt = 
+        sliderImages.forEach( (sliderImage) => {
+            const slideAt = ( window.scrollY + window.innerHeight ) - sliderImage.height/2;
+            const imageBottom = sliderImage.offsetTop + sliderImage.height;
+            const isHalfShown = slideAt > sliderImage.offsetTop;
+            const isNotScrolled = imageBottom > window.scrollY;
+
+            if(isHalfShown && isNotScrolled) {
+                sliderImage.classList.add('active');
+            } else {
+                sliderImage.classList.remove('active');
+            }
+
+
+        });
+    }
+    window.addEventListener('scroll' , debounce(checkScroll, 300));
+
+    
+
   </script>
 
   <style>
